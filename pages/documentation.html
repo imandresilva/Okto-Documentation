@@ -40,73 +40,370 @@
 
         <a href="https://discord.gg/hGzbXgD">Discord</a>
 
-        <a href="https://assetstore.unity.com/packages/tools/utilities/okto-251266">
+        <a href="https://assetstore.unity.com/packages/tools/utilities/okto-251266?aid=1101lGLI5">
             Asset Store
         </a>
 
     </nav>
 
     <h1>Documentation</h1>
-    <p>Documentation for Demo app.</p>
+    <p>This page is still a work in progress. Please leave suggestions on <a
+            href="https://discord.gg/hGzbXgD">Discord</a>.</p>
 </header>
 
 
 <main>
     <fieldset>
-        <!--
-        Every fieldset must contain a legend. IE barfs if it's not there.
-        It's no fun.
-        -->
         <legend>Table Of Contents</legend>
 
-
         <ul>
-            <li><a href="#about"><b>API Routes</a></b>
+            <li><a href="#theory"><b>Theory</b></a></li>
+            <li><a href="#okto"><b>Okto</b></a>
                 <ul>
-                    <li><a href="#api_route_1">API Route: Hello World</a></li>
-                    <li><a href="#api_route_2">API Route: Foo Bar</a></li>
-                    <li><a href="#about">I'm a hyperlink</a></li>
+                    <li><a href="#installation">Installation Instructions</a></li>
+                    <li><a href="#what-is-okto">What is Okto?</a></li>
+                    <li><a href="#entities">Communication Entities</a>
+                        <ul>
+                            <li><a href="#publishers">Publishers</a></li>
+                            <li><a href="#subscribers">Subscribers</a></li>
+                            <li><a href="#clients">Clients</a></li>
+                            <li><a href="#providers">Providers</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#visualizer">Visualizer</a>
+                        <ul>
+                            <li><a href="visualizer-controls">Controls</a></li>
+                            <li><a href="visualizer-graph-view">Graph View</a></li>
+                        </ul>
+                    </li>
                 </ul>
-
+            </li>
+            <li><a href="#tips"><b>Recommendations</b></a>
+                <ul>
+                    <li><a href="#best-practices">Best Practices</a></li>
+                    <li><a href="#pitfalls">Common Pitfalls</a>
+                        <ul>
+                            <li><a href="#forgetting-removal">Forgetting to remove entities</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li><a href="#snippets">Code snippets</a></li>
+                </ul>
+            </li>
         </ul>
-        <ul>
-            <li><a href="#about2"><b>Code Snippets</a></b>
-                <ul>
-                    <li><a href="#markdown_example">Markdown Post Example</a></li>
-                    <li><a href="#syntax_highlighting">Syntax Highlighting</a></li>
-                    <li><a href="#about">I'm a hyperlink</a></li>
-                </ul>
-
 
     </fieldset>
 
 
     <article>
-        <h1 id="about">API Routes</h1>
+        <h2 id="theory">Theory</h2>
         <p>
-            Lorem ipsum dolor sit amet, <b>consectetur adipisicing elit</b>, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud <em>exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat</em>. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-            non proident,
-            <mark>SUPER IMPORTANT</mark>
+            Video games tend to be composed of lots of GameObjects that must interact
+            with each other. This can lead to a large amount of complexity when
+            connecting them. Each GameObject must find and hold a reference to
+            other GameObjects that it is interested in. Not only that, but if a
+            GameObject's behaviour changes, it could impact all other GameObjects
+            that hold a reference to it.
         </p>
-        <h3>Get Hello World</h3>
-        <br>
-        <kbd id="api_route_1">GET /HelloWorld</kbd>
-        <br>
-        <h3>Get Foo Bar</h3>
-        <br>
-        <kbd id="api_route_2">GET /FooBar</kbd>
+        <p>
+            This is what is commonly called
+            <mark>Coupling</mark>
+            . The simplest
+            definition is: "if changing one part of the code requires changing
+            another part of some diferent code, then those two parts are coupled."
+        </p>
+        <p>
+            The implication is that, if your GameObjects are tightly coupled (another
+            way of saying that a change could impact multiple other GameObjects),
+            then suddenly every change you make is dangerous, because it could break
+            other systems that you had already finished.
+        </p>
+        <p>
+            Despite all of these downsides, coupling is inevitable. Your GameObjects
+            need to talk to other GameObjects, otherwise your game wouldn't be a
+            game. There are, however, things we can do to reduce the impact of making
+            changes in our GameObjects.
+        </p>
 
-        </p>
     </article>
-    <footer>
-    </footer>
 
     <article>
-        <h1 id="about2">Code Snippets</h1>
+        <h2 id="okto">Okto</h2>
+        
+        After you've had some time to try out Okto, please consider leaving
+        a review on the <a href="https://u3d.as/33eb">Asset Store</a>. It makes a world of difference and
+        allows us to keep improving Okto and creating new assets for the
+        community to use!
+
+        <h3 id="installation">Installation instructions</h3>
+
+        <h4 id="fresh-install">Fresh Install</h4>
+        <ol>
+            <li>
+                If you have not purchased Okto, you can do so on the
+                <a href="https://u3d.as/33eb">
+                    Unity Asset Store.
+                </a>
+            </li>
+            <li>Inside the Unity editor open the Package Manager.</li>
+            <li>Search for Okto, and open it.</li>
+            <li>Press download, followed by import.</li>
+            <li>
+                If it's your first time using Okto, you should import
+                everything. If not, feel free to not import the Demo scenes
+                (under the <kbd>Sylvan Studios/Okto/Demos</kbd> directory).
+            </li>
+            <li>
+                If you are using <a
+                    href="https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html">
+                assembly definitions</a>, make sure you reference the Okto
+                assembly. Instructions can be found <a
+                    href="https://docs.unity3d.com/Manual/ScriptCompilationAssemblyDefinitionFiles.html">here</a>.
+            </li>
+        </ol>
+
+        <h4>Updating</h4>
+        <warn>
+            IMPORTANT: Make sure you have a backup of your project before
+            updating any asset.
+        </warn>
+        <ol>
+            <li>
+                Delete the Okto folder. Due to how the Asset Store importer
+                works, if you don't do this step you might end up with
+                duplicated files or other issues.
+            </li>
+            <li>Follow the steps for a <a href="fresh-install">fresh install</a>.</li>
+            <li>
+                Read up on the
+                <a href="/Okto-Documentation/pages/changelog">changes</a> for
+                your updated version of Okto.
+            </li>
+        </ol>
+
+        <h3 id="what-is-okto">What is Okto?</h3>
+        <p>
+            Okto provides an event aggregator for developers. It allows you
+            to send events through a topic and receive them in other scripts
+            which you have indicated are interested in the same topic. Okto
+            operates without requiring those who send event to know about
+            whoever is interested in receiving events. This results in
+            cleaner, more modular and decoupled code.
+        </p>
+        <p>
+            Okto is based on objects called <a href="#entities">Communication
+            Entities</a>. These are the only objects you need to create to
+            use Okto, and fall into three different categories: Broadcast
+            (<a href="publishers">Publishers</a> and <a href="subscribers">
+            Subscribers</a>), Services (<a href="clients">Clients</a> and 
+            <a href="providers">Providers</a>) and in future, Queues
+            (<a href="producers">Producers</a> and <a href="consumers">
+            Consumers</a>).
+        </p>
+
+        <h3 id="entities">Communication Entities</h3>
+
+        All communication entities must be created with an <code>owner</code>.
+        The owner can be any object. The purpose of providing an owner when
+        creating a new communication entity is so that the visualizer window
+        can group your communication entities.
+
+        <!------ PUBLISHERS ------>
+        <h4 id="publishers">Publishers</h4>
+        <kbd>Okto.Publisher&lt;T&gt;(object owner, string topic)</kbd>
+        <p>
+            Publishers can broadcast events of type <code>T</code> to all
+            <a href="subscribers">Subscribers</a> interested in the
+            <code>topic</code>.
+        </p>
+        <p>
+            To publish an event, you can use the following method:
+        </p>
+        <kbd>Publisher.Publish&lt;T&gt;(T @event)</kbd>
+        <p>
+            Events can be published at any point in a C# script, as long as
+            the Publisher has been created. One common pattern is to publish
+            your events inside a subscriber callback.
+        </p>
+<!--        <p>-->
+<!--            Consider the following example:-->
+<!--        </p>-->
+        
+<!--        Example of a quest system:-->
+<!--        PlayerPickupSystem -> QuestSystem -> LevelUpSystem-->
+        
+<!--        <p>-->
+<!--            There are three different systems connected-->
+<!--        </p>-->
+
+        <p>
+            To remove a Publisher, you can use the RemovePublisher method:
+        </p>
+        <kbd>Otko.RemovePublisher(Publisher publisher)</kbd>
+
+        <!------ SUBSCRIBERS ------>
+        <h4 id="subscribers">Subscribers</h4>
+        <kbd>Okto.Subscriber&lt;T&gt;(object owner, string topic, Action&lt;T&gt; callback)</kbd>
+        <p>
+            Subscribers receive events published to their registered topic,
+            and execute their corresponding <code>callback</code>.
+        </p>
+        <p>
+            Keep in mind subscribers will receive all events published through
+            the <code>topic</code>. As such, you must either be more specific
+            with your topic naming, or use conditional statements inside your
+            callbacks to filter messages. (Okto is planned to have built-in
+            filters in v1.4.0)
+        </p>
+        <p>
+            For example, you could have the following topic, published
+            by your PlayerHealth script: "player_health_changed". Then,
+            your UI could subscribe to the same topic and update your health
+            bar.
+        </p>
+        <p>
+            However, if you have a system that handles if your player dies,
+            you're not interested in receiving an event if the player's
+            health changes from 10 to 9. So, you'd have to have an if statement
+            inside your callback to make sure you only execute your player
+            death code when the health changes to 0.
+        </p>
+        <p>
+            An alternative would be to split your topic into two smaller topics:
+            "player_health_changed" and "player_died". Inside your player
+            health script, you'd need to emit an event every time the health
+            changes, and another when the health reaches 0.
+        </p>
+        <p>
+            Both approaches are valid. You should find a system that works
+            best for you and be consistent throughout your project.
+            Our recomendation is to make smaller, more fine-grained topics.
+            Even if you end up not needing a topic, the effect of calling
+            Publish when there are no subscribers is, for most cases, 
+            negligeable.
+        </p>
+        <p>
+            To remove a Subscriber, you must use the RemoveSubscriber method:
+        </p>
+        <kbd>Otko.RemoveSubscriber(Subscriber subscriber)</kbd>
+
+        <!------ CLIENTS ------>
+        <h4 id="clients">Clients</h4>
+        <kbd>Okto.Client&lt;TR,TP&gt;(object owner, string topic)</kbd>
+        <p>
+
+        </p>
+        <p>
+            To remove a Client, you must use the RemoveClient method:
+        </p>
+        <kbd>Otko.RemoveClient(Client client)</kbd>
+        
+        <!------ PROVIDERS ------>
+        <h4 id="providers">Providers</h4>
+        <kbd>Okto.Provider&lt;TR,TP&gt;(object owner, string topic, Func&lt;TR, TP&gt; requestCallback)</kbd>
+        <p>
+
+        </p>
+        <p>
+            To remove a Provider, you must use the RemoveProvider method:
+        </p>
+        <kbd>Otko.RemoveProvider(Provider provider)</kbd>
+
+        <!------ PRODUCERS ------>
+        <h4 id="producers">Producers</h4>
+        <kbd>Okto.Producer&lt;T&gt;(object owner, string topic, OktoQueueParameters queueParameters = default)</kbd>
+        
+        <p>
+            Producers are part of the Queues communication pattern. You can use a producer to produce a
+            message into a queue for later consumption. This can be especially useful when you want to make sure that
+            work is split into different frames. For example, if you have 5 enemies that need to path-find, but
+            doing so in one frame causes a lag-spike, you can produce the messages into a queue, and have a consumer
+            read them, one per frame, and do the required calculations.
+        </p>
+        <p>
+            To remove a Producer, you must use the RemoveProducer method:
+        </p>
+        <kbd>Otko.RemoveProducer(Producer producer)</kbd>
+
+        <!------ CONSUMERS ------>
+        <h4 id="consumers">Consumers</h4>
+        <kbd>Okto.Consumer&lt;T&gt;(object owner, string topic, OktoQueueParameters queueParameters = default)</kbd>
+        <p>
+
+        </p>
+        <p>
+            To remove a Consumer, you must use the RemoveConsumer method:
+        </p>
+        <kbd>Otko.RemoveConsumer(Consumer consumer)</kbd>
+
+        <h3 id="visualizer">Visualizer</h3>
+        <p>To access the visualizer window go to the top menu:</p>
+        <kbd>Tools</kbd> > <kbd>Okto</kbd> > <kbd>Visualizer</kbd>
+        <p>
+            The visualizer is composed of two sections: the controls and the
+            graph view.
+        </p>
+        <h4 id="visualizer-controls">Controls</h4>
+        <p>
+            Currently, the controls contain only one button which allows you
+            to disable the automatic layout system. The automatic layout
+            system is force directed, as such, it will never achieve perfect
+            results. Our suggestion is to let the graph layout itself as much
+            as it can, disable the automatic layouter, and then manually make
+            changes to the graph so you can interpret it more easily.
+        </p>
+        <p>
+            Keep in mind there are still a lot of features and improvements
+            we want to make to the visualizer, so expect changes to the system.
+        </p>
+        <h4 id="visualizer-graph-view">Graph View</h4>
+        <p>
+            The graph view shows you all your game objects that own
+            communication entities as nodes.
+        </p>
+        <p>
+            Publishers and clients are shown as outputs (on the right side)
+            of the nodes. Subscribers and providers are shown as inputs (left
+            side).
+        </p>
+        <p>
+            Double-clicking a node in the graph view will highlight the 
+            corresponding game object in the hierarchy.
+        </p>
+    </article>
+
+    <article>
+        <h2 id="tips">Recommendations</h2>
+
+        <h3 id="best-practices">Best Practices</h3>
+        <h3 id="pitfalls">Common Pitfalls</h3>
+        <h4 id="forgetting-removal">Forgetting to remove entities</h4>
+        <p>
+            One of the most common issues faced by developers when using Okto
+            is forggetting to remove entities before disabling a GameObject.
+            Whenever a GameObject is disabled, any communication entities
+            that were created inside any script attached to that GameObject
+            must be removed from Okto.
+        </p>
+        <p>
+            If these communication entities are not removed, unexpected
+            behaviour might occur. Okto will try to execute the callbacks for
+            any entities which are interested in that given topic, regardless
+            of their owning GameObject being enabled or not.
+        </p>
+        <p>
+            To combat this, whenever you exit play mode, Okto validates if
+            there are any left over entities. If there are, a warning will be
+            logged to the console, so you can unregister those entities.
+        </p>
+        
+        <h3 id="snippets">Code Snippets</h3>
+        <pre>
+            <code>
+// This section is a work in progress. As more discussion happens on discord
+// we will place useful snippets here.</code>
+        </pre>
+        <!--
         <p>
             Lorem ipsum dolor sit amet, <b>consectetur adipisicing elit</b>, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -138,253 +435,19 @@
             molestias excepturi sint occaecati cupiditate non provident, similique sunt
             in culpa qui officia deserunt mollitia animi, id est laborum et dolorum
             fuga. Et harum quidem rerum facilis est et expedita distinctio.
-            <code>
-        <pre>
-    sudo ipfw pipe 1 config bw 256KByte/s
-    sudo ipfw add 1 pipe 1 src-port 3000
-  </pre>
-        </code>
-
         </p>
+
+        <pre>
+            <code>
+                <tab></tab>sudo ipfw pipe 1 config bw 256KByte/s <br>
+                sudo ipfw add 1 pipe 1 src-port 3000
+            </code>
+        </pre>
+        -->
     </article>
 
 
-    <article>
-        <h1 id="markdown_example">Markdown Example</h1>
-        <md>
-
-            You can write / use Markdown Content in Simply Docs with literal EASE! Thanks to an awesome tool of ours -
-            [Markdown Tag](https://github.com/MarketingPipeline/Markdown-Tag)
-
-
-            ### How to use Markdown Content in [Simply Docs](https://github.com/MarketingPipeline/Simply-Docs)
-
-
-            &lt;md&gt;# Put your markdown content here &lt;/md&gt;
-
-
-            That's it! Simply as that! <br>
-
-
-            This post is all wrote in markdown :)
-
-            You will love this!
-
-            ---
-
-            # h1 Heading 8-)
-            ## h2 Heading
-            ### h3 Heading
-            #### h4 Heading
-            ##### h5 Heading
-            ###### h6 Heading
-
-
-            ## Horizontal Rules
-
-            ___
-
-            ---
-
-            ***
-
-
-            ## Typographic replacements
-
-            Enable typographer option to see result.
-
-            (c) (C) (r) (R) (tm) (TM) (p) (P) +-
-
-            test.. test... test..... test?..... test!....
-
-            !!!!!! ???? ,, -- ---
-
-            "Smartypants, double quotes" and 'single quotes'
-
-
-            ## Emphasis
-
-            **This is bold text**
-
-            __This is bold text__
-
-            *This is italic text*
-
-            _This is italic text_
-
-            ~~Strikethrough~~
-
-
-            ## Blockquotes
-
-
-            > Blockquotes can also be nested...
-            >> ...by using additional greater-than signs right next to each other...
-            > > > ...or with spaces between arrows.
-
-
-            ## Lists
-
-            Unordered
-
-            + Create a list by starting a line with `+`, `-`, or `*`
-            + Sub-lists are made by indenting 2 spaces:
-            - Marker character change forces new list start:
-            * Ac tristique libero volutpat at
-            + Facilisis in pretium nisl aliquet
-            - Nulla volutpat aliquam velit
-            + Very easy!
-
-            Ordered
-
-            1. Lorem ipsum dolor sit amet
-            2. Consectetur adipiscing elit
-            3. Integer molestie lorem at massa
-
-
-            1. You can use sequential numbers...
-            1. ...or keep all the numbers as `1.`
-
-            Start numbering with offset:
-
-            57. foo
-            1. bar
-
-
-            ## Code
-
-            Inline `code`
-
-            Indented code
-
-            // Some comments
-            line 1 of code
-            line 2 of code
-            line 3 of code
-
-
-            Block code "fences"
-
-            ```
-            Sample text here...
-            ```
-
-            Syntax highlighting
-
-            ``` js
-            var foo = function (bar) {
-            return bar++;
-            };
-
-            console.log(foo(5));
-            ```
-
-            ## Tables
-
-            | Tables | Are | Cool |
-            | ------------- |:-------------:| -----:|
-            | **col 3 is** | right-aligned | $1600 |
-            | col 2 is | *centered* | $12 |
-            | zebra stripes | ~~are neat~~ | $1 |
-
-
-            ## Links
-
-            [link text](http://dev.nodeca.com)
-
-            [link with title](http://nodeca.github.io/pica/demo/ "title text!")
-
-
-            ## Images
-
-            ![Minion](https://octodex.github.com/images/minion.png)
-            ![Stormtroopocat](https://octodex.github.com/images/stormtroopocat.jpg "The Stormtroopocat")
-
-            Like links, Images also have a footnote style syntax
-
-
-            ![The Dojocat](https://octodex.github.com/images/dojocat.jpg)
-
-            With a reference later in the document defining the URL location:
-
-            ![ID](URL "ALT TEXT")
-
-            ## Plugins
-
-
-            ### [Emojies](https://github.com/markdown-it/markdown-it-emoji)
-
-            :8ball:
-
-            > Classic markup: :wink: :cry: :laughing: :yum:
-            >
-
-
-            see [how to change a lightbulb](https://github.com/) or get rick rolled.
-
-
-            ### [Subscript](https://github.com/markdown-it/markdown-it-sub) /
-            [Superscript](https://github.com/markdown-it/markdown-it-sup)
-
-            - 19^th^
-            - H~2~O
-
-
-            ### [Footnotes NOT WORKING] (https://github.com/markdown-it/markdown-it-footnote)
-
-            Footnote 1 link[^first].
-
-            Footnote 2 link[^second].
-
-            Inline footnote^[Text of inline footnote] definition.
-
-            Duplicated footnote reference[^second].
-
-            [^first]: Footnote **can have markup**
-
-            and multiple paragraphs.
-
-            [^second]: Footnote text.
-
-        </md>
-    </article>
 </main>
-
-
-<article>
-    <h1 id="syntax_highlighting">Syntax Highlighting</h1>
-    <p>
-        Simply Docs now has <b>syntax highlighting support</b>,
-        the following post demonstrates how to <em>use it</em>.
-    </p>
-
-    <br>
-
-    <h3> How to use in plain HTML</h3>
-    <pre class="language-markup">
-<code>Put your language type ↓ here
-&lt;pre class=&quot;language-markup&quot;&gt;&lt;code&gt;
-    &lt;!-- code content to highlight... --&gt;
-&lt;/code&gt;&lt;/pre&gt;</code></pre>
-
-    <br>
-
-
-    <h3> How to use in Markdown</h3>
-
-    <pre class="language-markup">
-<code>Add a Markdown Tag & use GitHub Markdown Syntax to use Code Highlighting like so - 
-&lt;md&gt; 
-``` js
-var foo = function (bar) {
-  return bar++;
-};
-
-console.log(foo(5));
-```  &lt;/md&gt;</code></pre>
-
-</article>
-
 
 <footer>
     <iframe src="https://discord.com/widget?id=532994584850989079&theme=dark" width="350" height="300"
@@ -393,7 +456,7 @@ console.log(foo(5));
 
     <p>
         Okto was created by <a href="https://imandresilva.github.io/">André F. Silva</a> and is available on the
-        <a href="https://assetstore.unity.com/packages/tools/utilities/okto-251266">Asset Store</a>.
+        <a href="https://u3d.as/33eb">Asset Store</a>.
     </p>
     <small>© 2023 Sylvan Studios</small>
     <address>andre.olivais@gmail.com</address>
@@ -408,7 +471,6 @@ console.log(foo(5));
     // Check https://github.com/flesler/jquery.scrollTo for more customizability
     $(window).stop(true).scrollTo(this.hash, {duration:500, interrupt:false});
   });
-
 </script>
 
 <script src="https://cdn.jsdelivr.net/gh/MarketingPipeline/Markdown-Tag/markdown-tag-commonmark.js"></script>
